@@ -52,4 +52,4 @@ npm run start
 
 ## Licence
 
-Ce projet est fourni à titre d’exemple et sans garantie. Vous êtes libre de l’adapter et de le réutiliser.
+Ce projet est créé par Virgile Ader tout droit reservé
