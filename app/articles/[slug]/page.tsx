@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import PostCard from "@/components/PostCard";
+import MarkdownRenderer from "@/components/MarkdownRenderer"; // ← Import du nouveau composant
 
 interface ArticlePageProps {
   params: {
@@ -13,14 +14,12 @@ interface ArticlePageProps {
   };
 }
 
-// Générer les paramètres statiques pour le build
 export async function generateStaticParams() {
   return articles.map((article) => ({
     slug: article.slug,
   }));
 }
 
-// Metadata pour le SEO
 export async function generateMetadata({ params }: ArticlePageProps) {
   const article = getArticleBySlug(params.slug);
 
@@ -74,23 +73,19 @@ export default function ArticlePage({ params }: ArticlePageProps) {
           {/* Header de l'article */}
           <header className="space-y-8 mb-12">
             <div className="space-y-6">
-              {/* Catégorie */}
               <Badge variant="secondary" className="w-fit text-sm px-3 py-1">
                 {article.category}
               </Badge>
 
-              {/* Titre */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance">
                 {article.title}
               </h1>
 
-              {/* Excerpt */}
               <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed">
                 {article.excerpt}
               </p>
             </div>
 
-            {/* Métadonnées de l'article */}
             <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
@@ -114,7 +109,6 @@ export default function ArticlePage({ params }: ArticlePageProps) {
               </div>
             </div>
 
-            {/* Tags */}
             <div className="flex flex-wrap gap-2">
               {article.tags.map((tag) => (
                 <Badge key={tag} variant="outline" className="text-xs">
@@ -127,20 +121,15 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             <Separator />
           </header>
 
-          {/* Contenu de l'article */}
-          <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-bold prose-headings:leading-tight prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-p:leading-relaxed prose-a:text-blue-600 hover:prose-a:text-blue-800 prose-blockquote:border-l-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:p-4 prose-blockquote:rounded-r-lg dark:prose-blockquote:bg-blue-950/20">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: article.content.replace(/\n/g, "<br />"),
-              }}
-            />
+          {/* Contenu de l'article avec le nouveau renderer */}
+          <div className="mb-16">
+            <MarkdownRenderer content={article.content} />
           </div>
 
           {/* Footer de l'article */}
           <footer className="mt-16 space-y-8">
             <Separator />
 
-            {/* Informations auteur */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-6 bg-muted/30 rounded-2xl">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">

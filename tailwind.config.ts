@@ -50,7 +50,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/typography"),
+    // ... autres plugins
+  ],
 };
 
 export default config;
