@@ -1,3 +1,167 @@
-# À propos
+import Image from 'next/image'
 
-Je suis Jane Doe, développeuse front-end et passionnée par Next.js, Tailwind et le Markdown.
+export const metadata = {
+  title: 'À propos - Virgile Ader',
+  description: 'Découvrez mon parcours, mes compétences et ma passion pour le développement web.',
+}
+
+<div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+    {/* Header */}
+    <div className="text-center mb-16">
+      <div className="w-32 h-32 mx-auto mb-8 relative">
+        <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl">
+          <span className="text-white font-bold text-4xl">VA</span>
+        </div>
+      </div>
+      <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+        Salut, je suis
+        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+          Virgile Ader
+        </span>
+      </h1>
+      <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+        Développeur passionné par les technologies web modernes et l'innovation numérique
+      </p>
+    </div>
+
+    {/* Contenu principal */}
+    <div className="grid md:grid-cols-2 gap-12 mb-16">
+
+      {/* À propos de moi */}
+      <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+          <span className="w-2 h-8 bg-gradient-to-b from-indigo-500 to-purple-600 rounded-full mr-4"></span>
+          À propos de moi
+        </h2>
+        <div className="space-y-4 text-gray-700 leading-relaxed">
+          <p>
+            Bienvenue sur mon **Mini Blog** ! Je suis un développeur web passionné par
+            l'écosystème JavaScript moderne, avec une expertise particulière en
+            <strong className="text-indigo-600"> React, Next.js et TypeScript</strong>.
+          </p>
+          <p>
+            À travers ce blog, je partage mes découvertes, mes expériences et mes réflexions
+            sur le monde du développement web. Vous y trouverez des tutoriels pratiques,
+            des analyses de nouvelles technologies, et mes retours d'expérience sur
+            différents projets.
+          </p>
+          <p>
+            Diplômé en informatique, j'ai acquis une solide expérience dans le développement
+            d'applications web performantes et d'interfaces utilisateur modernes.
+            Je crois fermement que la technologie doit servir l'humain et améliorer
+            notre quotidien.
+          </p>
+        </div>
+      </div>
+
+      {/* Compétences */}
+      <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+          <span className="w-2 h-8 bg-gradient-to-b from-indigo-500 to-purple-600 rounded-full mr-4"></span>
+          Mes compétences
+        </h2>
+        <div className="space-y-6">
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-3">Frontend</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">React</span>
+              <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Next.js</span>
+              <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">TypeScript</span>
+              <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Tailwind CSS</span>
+              <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">JavaScript ES6+</span>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-3">Outils & Technologies</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Git</span>
+              <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Node.js</span>
+              <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Markdown</span>
+              <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Vercel</span>
+              <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">GitHub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Ce que vous trouverez sur ce blog */}
+    <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 mb-16">
+      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+        Ce que vous trouverez sur ce blog
+      </h2>
+      <div className="grid md:grid-cols-3 gap-8">
+
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <span className="text-2xl">💻</span>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-3">Tutoriels techniques</h3>
+          <p className="text-gray-600 leading-relaxed">
+            Des guides pratiques sur React, Next.js, TypeScript et les meilleures pratiques
+            du développement web moderne.
+          </p>
+        </div>
+
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <span className="text-2xl">🚀</span>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-3">Projets & Expériences</h3>
+          <p className="text-gray-600 leading-relaxed">
+            Mes retours d'expérience sur différents projets, les défis rencontrés
+            et les solutions trouvées.
+          </p>
+        </div>
+
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <span className="text-2xl">🔍</span>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-3">Veille technologique</h3>
+          <p className="text-gray-600 leading-relaxed">
+            Analyses des nouvelles technologies, frameworks émergents et tendances
+            du développement web.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Philosophie */}
+    <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-8 text-white text-center">
+      <h2 className="text-3xl font-bold mb-6">Ma philosophie</h2>
+      <p className="text-xl leading-relaxed max-w-3xl mx-auto mb-6">
+        "Le code n'est pas seulement un outil, c'est un moyen d'expression créative
+        qui permet de donner vie à des idées et de résoudre des problèmes concrets."
+      </p>
+      <p className="text-indigo-100">
+        Je crois en l'importance du partage de connaissances et de l'apprentissage continu
+        dans notre domaine en constante évolution.
+      </p>
+    </div>
+
+    {/* Contact */}
+    <div className="mt-16 text-center">
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">Restons en contact</h2>
+      <p className="text-gray-600 mb-8">
+        N'hésitez pas à me contacter si vous avez des questions, suggestions ou
+        simplement envie d'échanger sur le développement web !
+      </p>
+      <div className="flex justify-center space-x-6">
+        <a href="mailto:virgile@example.com" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors duration-200">
+          📧 Contact
+        </a>
+        <a href="https://github.com/virgileader" target="_blank" rel="noopener noreferrer" className="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-6 py-3 rounded-xl font-semibold transition-colors duration-200">
+          🐙 GitHub
+        </a>
+        <a href="https://linkedin.com/in/virgileader" target="_blank" rel="noopener noreferrer" className="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-6 py-3 rounded-xl font-semibold transition-colors duration-200">
+          💼 LinkedIn
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
