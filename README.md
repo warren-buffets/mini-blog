@@ -1,55 +1,36 @@
-# Mini Blog Next.js
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Ce dépôt contient un exemple de mini‑blog statique réalisé avec [Next.js](https://nextjs.org/).
+## Getting Started
 
-## Fonctionnalités
-
-* Page d’accueil listant tous les articles avec leur titre et un extrait.
-* Pages dynamiques pour chaque article (URL de la forme `/posts/[slug]`).
-* Contenu des articles stocké dans des fichiers **Markdown** dans le dossier `posts/`.
-* Barre de recherche pour filtrer les articles par titre ou extrait.
-* Page "À propos" simple.
-* Navigation entre les pages via la barre de navigation.
-* Mise en page basique utilisant Tailwind CSS.
-
-## Installation
-
-Pour installer et lancer le projet localement :
+First, run the development server:
 
 ```bash
-# Installez les dépendances
-npm install
-
-# Lancez le serveur de développement
 npm run dev
-
-# Ouvrez votre navigateur sur http://localhost:3000
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Pour générer un site statique prêt à être déployé :
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-npm run build
-npm run start
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Ajouter un article
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-1. Créez un nouveau fichier dans le dossier `posts/` avec l’extension `.md`.
-2. Ajoutez un en‑tête YAML au début du fichier :
+## Learn More
 
-   ```md
-   ---
-   title: "Titre de l’article"
-   date: "2025-07-25"
-   excerpt: "Extrait de l’article."
-   ---
-   
-   Le contenu de votre article en Markdown commence ici.
-   ```
+To learn more about Next.js, take a look at the following resources:
 
-3. Le `slug` de votre article est dérivé du nom du fichier (ex. `mon-article.md` devient `/posts/mon-article`).
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Licence
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-Ce projet est fourni à titre d’exemple et sans garantie. Vous êtes libre de l’adapter et de le réutiliser.
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
