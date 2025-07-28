@@ -7,6 +7,7 @@ import {
   TrendingUp,
   Sparkles,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -51,13 +52,21 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up animation-delay-400">
-            <Button size="lg" className="group px-8 py-3 text-base">
-              Lire les articles
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button variant="outline" size="lg" className="px-8 py-3 text-base">
-              S'abonner à la newsletter
-            </Button>
+            <Link href="#featured-articles">
+              <Button size="lg" className="group px-8 py-3 text-base">
+                Lire les articles
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Link href="#newsletter">
+              <Button
+                variant="outline"
+                size="lg"
+                className="px-8 py-3 text-base"
+              >
+                S'abonner à la newsletter
+              </Button>
+            </Link>
           </div>
 
           {/* Stats */}

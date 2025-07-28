@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -33,8 +34,9 @@ export default function SearchBar({
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
-  // Mock data pour la démo
+  // Mock data pour la démo - articles réels
   const mockResults: SearchResult[] = [
     {
       id: "1",
@@ -42,7 +44,7 @@ export default function SearchBar({
       excerpt:
         "Découvrez toutes les nouveautés de Next.js 15 avec des exemples pratiques",
       category: "React",
-      date: "2024-01-15",
+      date: "15 Jan 2024",
       slug: "guide-nextjs-15",
     },
     {
@@ -50,7 +52,7 @@ export default function SearchBar({
       title: "TypeScript : Bonnes pratiques 2024",
       excerpt: "Les meilleures pratiques TypeScript pour des projets robustes",
       category: "TypeScript",
-      date: "2024-01-10",
+      date: "12 Jan 2024",
       slug: "typescript-bonnes-pratiques",
     },
     {
@@ -58,8 +60,25 @@ export default function SearchBar({
       title: "Tailwind CSS et composants réutilisables",
       excerpt: "Comment créer des composants modulaires avec Tailwind CSS",
       category: "CSS",
-      date: "2024-01-05",
+      date: "10 Jan 2024",
       slug: "tailwind-composants",
+    },
+    {
+      id: "4",
+      title: "React Server Components expliqués",
+      excerpt:
+        "Une plongée dans les Server Components et leur utilisation pratique",
+      category: "React",
+      date: "8 Jan 2024",
+      slug: "react-server-components",
+    },
+    {
+      id: "5",
+      title: "Design System avec shadcn/ui",
+      excerpt: "Créer un système de design cohérent avec shadcn/ui",
+      category: "Design",
+      date: "5 Jan 2024",
+      slug: "design-system-shadcn",
     },
   ];
 
@@ -73,7 +92,7 @@ export default function SearchBar({
 
   // Simulation de recherche
   useEffect(() => {
-    if (query.length > 2) {
+    if (query.length > 1) {
       setIsLoading(true);
       const timer = setTimeout(() => {
         const filtered = mockResults.filter(
@@ -127,6 +146,7 @@ export default function SearchBar({
     e.preventDefault();
     if (query.trim()) {
       onSearch?.(query);
+      router.push(`/search?q=${encodeURIComponent(query)}`);
       setIsOpen(false);
     }
   };
@@ -135,6 +155,18 @@ export default function SearchBar({
     setQuery("");
     setResults([]);
     inputRef.current?.focus();
+  };
+
+  const handleResultClick = (slug: string) => {
+    router.push(`/articles/${slug}`);
+    setIsOpen(false);
+    setQuery("");
+  };
+
+  const handleTrendingClick = (term: string) => {
+    setQuery(term);
+    router.push(`/search?q=${encodeURIComponent(term)}`);
+    setIsOpen(false);
   };
 
   return (
@@ -195,11 +227,7 @@ export default function SearchBar({
                     key={term}
                     variant="ghost"
                     size="sm"
-                    onClick={() => {
-                      setQuery(term);
-                      onSearch?.(term);
-                      setIsOpen(false);
-                    }}
+                    onClick={() => handleTrendingClick(term)}
                     className="h-8 px-3 text-sm hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-900/20"
                   >
                     <Hash className="h-3 w-3 mr-1" />
@@ -223,10 +251,7 @@ export default function SearchBar({
                   {results.map((result) => (
                     <button
                       key={result.id}
-                      onClick={() => {
-                        setIsOpen(false);
-                        // Navigation vers l'article
-                      }}
+                      onClick={() => handleResultClick(result.slug)}
                       className="w-full text-left p-3 rounded-md hover:bg-muted/50 transition-colors group"
                     >
                       <div className="space-y-1">

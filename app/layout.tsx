@@ -28,60 +28,6 @@ export const metadata: Metadata = {
     "tutoriels",
     "blog technique",
   ],
-  authors: [{ name: "MiniBlog Team" }],
-  creator: "MiniBlog",
-  publisher: "MiniBlog",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://miniblog.dev"),
-  alternates: {
-    canonical: "/",
-    languages: {
-      "fr-FR": "/",
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "fr_FR",
-    url: "https://miniblog.dev",
-    title: "MiniBlog - L'art du développement web",
-    description:
-      "Découvrez les dernières tendances, tutoriels et bonnes pratiques du développement moderne.",
-    siteName: "MiniBlog",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "MiniBlog - Blog de développement web",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "MiniBlog - L'art du développement web",
-    description:
-      "Découvrez les dernières tendances, tutoriels et bonnes pratiques du développement moderne.",
-    images: ["/og-image.jpg"],
-    creator: "@miniblog",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: "your-google-verification-code",
-  },
 };
 
 interface RootLayoutProps {
@@ -173,42 +119,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           }}
         />
 
-        {/* Preload critical resources */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-
         {/* Theme color */}
         <meta name="theme-color" content="#3b82f6" />
         <meta name="color-scheme" content="light dark" />
-
-        {/* Favicon (optionnel - pas d'erreur si manquant) */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-
-        {/* JSON-LD structured data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Blog",
-              name: "MiniBlog",
-              description: "Blog de développement web moderne",
-              url: "https://miniblog.dev",
-              author: {
-                "@type": "Organization",
-                name: "MiniBlog Team",
-              },
-              publisher: {
-                "@type": "Organization",
-                name: "MiniBlog",
-              },
-            }),
-          }}
-        />
       </head>
 
       <body
@@ -218,14 +131,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           inter.variable,
         )}
       >
-        {/* Skip to main content for accessibility */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-[100] px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium"
-        >
-          Aller au contenu principal
-        </a>
-
         {/* Header */}
         <Header />
 

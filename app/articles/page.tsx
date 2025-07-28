@@ -117,7 +117,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Articles Section */}
-      <section id="featured-articles" className="py-12 sm:py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto space-y-12">
             {/* Section Header */}
@@ -238,10 +238,7 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter CTA Section */}
-      <section
-        id="newsletter"
-        className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 via-background to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20"
-      >
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 via-background to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="relative p-8 sm:p-12 rounded-2xl border border-border/50 bg-background/80 backdrop-blur-sm shadow-xl shadow-black/5 dark:shadow-white/5 text-center space-y-6">

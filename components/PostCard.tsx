@@ -1,7 +1,10 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowRight, User } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 interface PostCardProps {
@@ -27,8 +30,19 @@ export default function PostCard({
   featured = false,
   className,
 }: PostCardProps) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/articles/${slug}`);
+  };
+
+  const handleCategoryClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/categories/${category.toLowerCase()}`);
+  };
+
   return (
-    <Link href={`/posts/${slug}`} className="group">
+    <div className="group cursor-pointer" onClick={handleClick}>
       <Card
         className={cn(
           "h-full transition-all duration-300 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5",
@@ -53,7 +67,8 @@ export default function PostCard({
             <div className="absolute top-4 left-4">
               <Badge
                 variant={featured ? "default" : "secondary"}
-                className="shadow-sm"
+                className="shadow-sm cursor-pointer hover:scale-105 transition-transform"
+                onClick={handleCategoryClick}
               >
                 {category}
               </Badge>
@@ -123,7 +138,7 @@ export default function PostCard({
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </div>
   );
 }
 
@@ -138,8 +153,19 @@ export function PostCardHorizontal({
   author = "MiniBlog",
   className,
 }: PostCardProps) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/articles/${slug}`);
+  };
+
+  const handleCategoryClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/categories/${category.toLowerCase()}`);
+  };
+
   return (
-    <Link href={`/posts/${slug}`} className="group">
+    <div className="group cursor-pointer" onClick={handleClick}>
       <Card
         className={cn(
           "transition-all duration-300 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5",
@@ -153,7 +179,11 @@ export function PostCardHorizontal({
             <div className="relative w-full sm:w-48 h-32 sm:h-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 transition-transform duration-300 group-hover:scale-105" />
               <div className="absolute top-3 left-3">
-                <Badge variant="secondary" className="text-xs shadow-sm">
+                <Badge
+                  variant="secondary"
+                  className="text-xs shadow-sm cursor-pointer hover:scale-105 transition-transform"
+                  onClick={handleCategoryClick}
+                >
                   {category}
                 </Badge>
               </div>
@@ -198,6 +228,6 @@ export function PostCardHorizontal({
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </div>
   );
 }
