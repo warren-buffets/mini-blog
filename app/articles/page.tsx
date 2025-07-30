@@ -1,149 +1,184 @@
 import { Suspense } from "react";
-import Hero from "@/components/Hero";
-import SearchBar from "@/components/SearchBar";
+import {
+  getAllArticles,
+  getFeaturedArticles,
+  getRecentArticles,
+  categories,
+} from "@/lib/articles";
 import PostCard, { PostCardHorizontal } from "@/components/PostCard";
+import SearchBar from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
-  ArrowRight,
   BookOpen,
   TrendingUp,
   Star,
+  Filter,
+  Grid3X3,
+  List,
+  Calendar,
+  Clock,
+  Eye,
   Zap,
   Code,
   Palette,
   Rocket,
+  Database,
+  Paintbrush,
+  TestTube,
 } from "lucide-react";
 import Link from "next/link";
 
-// Mock data pour la démo
-const featuredPosts = [
-  {
-    title: "Guide complet de Next.js 15 : Toutes les nouveautés",
-    excerpt:
-      "Découvrez les dernières fonctionnalités de Next.js 15, du nouveau compilateur Turbo aux améliorations de performance. Un guide pratique avec des exemples concrets.",
-    slug: "guide-nextjs-15",
-    date: "15 Jan 2024",
-    readTime: "8 min",
-    category: "React",
-    featured: true,
-  },
-  {
-    title: "TypeScript : 10 bonnes pratiques pour 2024",
-    excerpt:
-      "Maîtrisez TypeScript avec ces techniques avancées. Types utilitaires, patterns de design et optimisations pour des projets plus robustes.",
-    slug: "typescript-bonnes-pratiques-2024",
-    date: "12 Jan 2024",
-    readTime: "6 min",
-    category: "TypeScript",
-  },
-  {
-    title: "Tailwind CSS : Créer des composants réutilisables",
-    excerpt:
-      "Apprenez à structurer vos composants Tailwind pour une maintenance optimale. Design system, variables CSS et bonnes pratiques.",
-    slug: "tailwind-composants-reutilisables",
-    date: "10 Jan 2024",
-    readTime: "5 min",
-    category: "CSS",
-  },
-];
+const categoryIcons: { [key: string]: any } = {
+  react: Code,
+  typescript: Zap,
+  css: Palette,
+  performance: Rocket,
+  backend: Database,
+  design: Paintbrush,
+  testing: TestTube,
+};
 
-const recentPosts = [
-  {
-    title: "React Server Components : Le futur du développement React",
-    excerpt:
-      "Une plongée profonde dans les Server Components et leur impact sur l'architecture de vos applications React.",
-    slug: "react-server-components",
-    date: "8 Jan 2024",
-    readTime: "7 min",
-    category: "React",
-  },
-  {
-    title: "Optimisation des performances web : Guide pratique",
-    excerpt:
-      "Techniques concrètes pour améliorer les Core Web Vitals et l'expérience utilisateur de vos applications.",
-    slug: "optimisation-performances-web",
-    date: "5 Jan 2024",
-    readTime: "9 min",
-    category: "Performance",
-  },
-  {
-    title: "Design System avec shadcn/ui : Retour d'expérience",
-    excerpt:
-      "Comment nous avons mis en place un design system cohérent avec shadcn/ui dans nos projets.",
-    slug: "design-system-shadcn-ui",
-    date: "3 Jan 2024",
-    readTime: "6 min",
-    category: "Design",
-  },
-];
+const categoryColors: { [key: string]: string } = {
+  react: "bg-blue-500",
+  typescript: "bg-blue-600",
+  css: "bg-pink-500",
+  performance: "bg-green-500",
+  backend: "bg-purple-500",
+  design: "bg-orange-500",
+  testing: "bg-red-500",
+};
 
-const categories = [
-  { name: "React", count: 12, icon: Code, color: "bg-blue-500" },
-  { name: "TypeScript", count: 8, icon: Zap, color: "bg-blue-600" },
-  { name: "CSS", count: 6, icon: Palette, color: "bg-pink-500" },
-  { name: "Performance", count: 4, icon: Rocket, color: "bg-green-500" },
-];
+export const metadata = {
+  title: "Tous les articles - MiniBlog | Virgile Ader",
+  description:
+    "Découvrez tous mes articles sur le développement web : React, Next.js, TypeScript, CSS et bien plus. Guides, tutoriels et bonnes pratiques.",
+  keywords:
+    "articles, blog, développement web, React, Next.js, TypeScript, tutoriels",
+};
 
-export default function HomePage() {
+export default function ArticlesPage() {
+  const allArticles = getAllArticles();
+  const featuredArticles = getFeaturedArticles();
+  const recentArticles = getRecentArticles(8);
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <Hero />
-
-      {/* Search Section - Centré et moderne */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
+      <section className="py-16 sm:py-20 bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-indigo-950/20 dark:via-background dark:to-purple-950/20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className="text-center space-y-3">
-              <h2 className="text-2xl sm:text-3xl font-bold">
-                Que recherchez-vous ?
-              </h2>
-              <p className="text-muted-foreground">
-                Explorez notre collection d'articles et tutoriels
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <div className="space-y-6">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <BookOpen className="w-6 h-6 text-indigo-600" />
+                <Badge variant="secondary" className="px-3 py-1">
+                  {allArticles.length} articles publiés
+                </Badge>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+                Tous mes articles
+              </h1>
+
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Explorez ma collection complète d'articles sur le développement
+                web moderne. Guides pratiques, tutoriels détaillés et retours
+                d'expérience.
               </p>
             </div>
 
-            <Suspense
-              fallback={
-                <div className="h-12 bg-muted rounded-lg animate-pulse" />
-              }
-            >
-              <SearchBar />
-            </Suspense>
+            {/* Recherche */}
+            <div className="max-w-2xl mx-auto">
+              <Suspense
+                fallback={
+                  <div className="h-12 bg-muted rounded-lg animate-pulse" />
+                }
+              >
+                <SearchBar />
+              </Suspense>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Articles Section */}
-      <section className="py-12 sm:py-16 lg:py-20">
+      {/* Stats Section */}
+      <section className="py-8 border-b border-border/40">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto space-y-12">
-            {/* Section Header */}
-            <div className="text-center space-y-4">
-              <div className="flex items-center justify-center gap-2 mb-3">
-                <Star className="w-5 h-5 text-yellow-500" />
-                <Badge variant="secondary" className="px-3 py-1">
-                  Articles en vedette
-                </Badge>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center space-y-2">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                  <BookOpen className="w-6 h-6 text-blue-600" />
+                </div>
+                <div className="text-2xl font-bold">{allArticles.length}</div>
+                <div className="text-sm text-muted-foreground">Articles</div>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-balance">
-                Les articles les plus populaires
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Découvrez nos meilleurs contenus, sélectionnés pour leur qualité
-                et leur impact sur la communauté des développeurs.
-              </p>
+
+              <div className="text-center space-y-2">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-yellow-100 dark:bg-yellow-900/20 rounded-lg">
+                  <Star className="w-6 h-6 text-yellow-600" />
+                </div>
+                <div className="text-2xl font-bold">
+                  {featuredArticles.length}
+                </div>
+                <div className="text-sm text-muted-foreground">En vedette</div>
+              </div>
+
+              <div className="text-center space-y-2">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                  <Grid3X3 className="w-6 h-6 text-purple-600" />
+                </div>
+                <div className="text-2xl font-bold">{categories.length}</div>
+                <div className="text-sm text-muted-foreground">Catégories</div>
+              </div>
+
+              <div className="text-center space-y-2">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                  <TrendingUp className="w-6 h-6 text-green-600" />
+                </div>
+                <div className="text-2xl font-bold">2.5k+</div>
+                <div className="text-sm text-muted-foreground">Lectures</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Articles */}
+      <section className="py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="flex items-center justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-yellow-500" />
+                  <h2 className="text-2xl sm:text-3xl font-bold">
+                    Articles en vedette
+                  </h2>
+                </div>
+                <p className="text-muted-foreground">
+                  Mes contenus les plus populaires et appréciés
+                </p>
+              </div>
             </div>
 
-            {/* Featured Articles Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-              {featuredPosts.map((post, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredArticles.map((article) => (
                 <PostCard
-                  key={post.slug}
-                  {...post}
-                  className={index === 0 ? "lg:col-span-2 lg:row-span-2" : ""}
+                  key={article.slug}
+                  title={article.title}
+                  excerpt={article.excerpt}
+                  slug={article.slug}
+                  date={new Date(article.date).toLocaleDateString("fr-FR", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                  readTime={article.readTime}
+                  category={article.category}
+                  author={article.author}
+                  featured={article.featured}
                 />
               ))}
             </div>
@@ -151,41 +186,45 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
+      {/* Categories Quick Access */}
+      <section className="py-12 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className="text-center space-y-3">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="text-center space-y-2">
               <h2 className="text-2xl sm:text-3xl font-bold">
-                Explorez par catégorie
+                Explorer par catégorie
               </h2>
               <p className="text-muted-foreground">
-                Trouvez rapidement les sujets qui vous intéressent
+                Trouvez rapidement ce qui vous intéresse
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {categories.map((category) => {
-                const Icon = category.icon;
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {categories.slice(0, 8).map((category) => {
+                const Icon = categoryIcons[category.slug] || Code;
+                const colorClass =
+                  categoryColors[category.slug] || "bg-gray-500";
+
                 return (
                   <Link
-                    key={category.name}
-                    href={`/category/${category.name.toLowerCase()}`}
+                    key={category.slug}
+                    href={`/categories/${category.slug}`}
                     className="group"
                   >
-                    <div className="p-6 rounded-lg border border-border/50 bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1">
-                      <div className="flex items-center space-x-4">
+                    <div className="p-4 rounded-xl border border-border/50 bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+                      <div className="flex items-center gap-3">
                         <div
-                          className={`w-12 h-12 rounded-lg ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}
+                          className={`w-10 h-10 rounded-lg ${colorClass} flex items-center justify-center group-hover:scale-110 transition-transform`}
                         >
-                          <Icon className="w-6 h-6 text-white" />
+                          <Icon className="w-5 h-5 text-white" />
                         </div>
-                        <div>
-                          <h3 className="font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
                             {category.name}
                           </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {category.count} articles
+                          <p className="text-xs text-muted-foreground">
+                            {category.count} article
+                            {category.count > 1 ? "s" : ""}
                           </p>
                         </div>
                       </div>
@@ -194,41 +233,140 @@ export default function HomePage() {
                 );
               })}
             </div>
+
+            <div className="text-center">
+              <Link href="/categories">
+                <Button variant="outline">
+                  Voir toutes les catégories
+                  <Grid3X3 className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Recent Articles Section */}
-      <section className="py-12 sm:py-16 lg:py-20">
+      {/* All Articles */}
+      <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto space-y-12">
-            {/* Section Header */}
+          <div className="max-w-4xl mx-auto space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-blue-500" />
+                  <List className="w-5 h-5 text-blue-500" />
                   <h2 className="text-2xl sm:text-3xl font-bold">
-                    Articles récents
+                    Tous les articles
                   </h2>
                 </div>
                 <p className="text-muted-foreground">
-                  Les dernières publications de notre équipe
+                  {allArticles.length} articles triés par date de publication
                 </p>
               </div>
 
-              <Button variant="outline" className="group self-start">
-                Voir tous les articles
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" size="sm">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Plus récents
+                </Button>
+              </div>
             </div>
 
-            {/* Recent Articles List */}
+            <Separator />
+
             <div className="space-y-6">
-              {recentPosts.map((post, index) => (
-                <div key={post.slug}>
-                  <PostCardHorizontal {...post} />
-                  {index < recentPosts.length - 1 && (
-                    <Separator className="mt-6 opacity-50" />
+              {allArticles.map((article, index) => (
+                <div key={article.slug} className="group">
+                  <div className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl border border-border/50 bg-background hover:bg-muted/30 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                    {/* Article Info */}
+                    <div className="flex-1 space-y-4">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="space-y-3 flex-1">
+                          <div className="flex items-center gap-3">
+                            <Badge variant="secondary" className="text-xs">
+                              {article.category}
+                            </Badge>
+                            {article.featured && (
+                              <Badge variant="outline" className="text-xs">
+                                <Star className="w-3 h-3 mr-1" />
+                                Vedette
+                              </Badge>
+                            )}
+                          </div>
+
+                          <h3 className="text-xl sm:text-2xl font-bold leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            <Link href={`/articles/${article.slug}`}>
+                              {article.title}
+                            </Link>
+                          </h3>
+
+                          <p className="text-muted-foreground leading-relaxed line-clamp-2">
+                            {article.excerpt}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          <span>
+                            {new Date(article.date).toLocaleDateString(
+                              "fr-FR",
+                              {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              },
+                            )}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          <span>{article.readTime}</span>
+                        </div>
+
+                        <div className="flex items-center gap-1">
+                          <Eye className="w-4 h-4" />
+                          <span>
+                            {Math.floor(Math.random() * 1000) + 100} vues
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {article.tags.slice(0, 3).map((tag) => (
+                          <Badge
+                            key={tag}
+                            variant="outline"
+                            className="text-xs"
+                          >
+                            {tag}
+                          </Badge>
+                        ))}
+                        {article.tags.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{article.tags.length - 3}
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="flex md:flex-col gap-2 md:justify-center">
+                      <Link
+                        href={`/articles/${article.slug}`}
+                        className="flex-1 md:flex-none"
+                      >
+                        <Button className="w-full group">
+                          Lire l'article
+                          <BookOpen className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+
+                  {index < allArticles.length - 1 && (
+                    <Separator className="my-6 opacity-30" />
                   )}
                 </div>
               ))}
@@ -237,41 +375,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Newsletter CTA Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 via-background to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
+      {/* Newsletter CTA */}
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-blue-50 via-background to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="relative p-8 sm:p-12 rounded-2xl border border-border/50 bg-background/80 backdrop-blur-sm shadow-xl shadow-black/5 dark:shadow-white/5 text-center space-y-6">
-              {/* Background decoration */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 rounded-2xl" />
-
-              <div className="relative z-10 space-y-6">
-                <div className="space-y-3">
-                  <h2 className="text-2xl sm:text-3xl font-bold">
-                    Restez à jour avec MiniBlog
-                  </h2>
-                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Recevez nos meilleurs articles directement dans votre boîte
-                    mail. Rejoignez plus de 2,500 développeurs qui nous font
-                    confiance.
-                  </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                  <input
-                    type="email"
-                    placeholder="votre@email.com"
-                    className="flex-1 px-4 py-3 rounded-lg border border-border/50 bg-background focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                  <Button size="lg" className="px-8">
-                    S'abonner
-                  </Button>
-                </div>
-
-                <p className="text-sm text-muted-foreground">
-                  Pas de spam. Désabonnement en un clic.
+            <div className="relative p-8 sm:p-12 rounded-2xl border border-border/50 bg-background/80 backdrop-blur-sm shadow-xl text-center space-y-6">
+              <div className="space-y-3">
+                <h2 className="text-2xl sm:text-3xl font-bold">
+                  Ne ratez aucun article
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Recevez mes derniers articles directement dans votre boîte
+                  mail. Pas de spam, promis !
                 </p>
               </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="votre@email.com"
+                  className="flex-1 px-4 py-3 rounded-lg border border-border/50 bg-background focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <Button size="lg" className="px-8">
+                  S'abonner
+                </Button>
+              </div>
+
+              <p className="text-sm text-muted-foreground">
+                Rejoignez les 2,500+ développeurs qui me font confiance
+              </p>
             </div>
           </div>
         </div>
