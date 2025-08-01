@@ -50,7 +50,7 @@ MiniBlog est né de ma passion pour le partage de connaissances et l'exploration
 
 1. **Cloner le projet**
 ```bash
-git clone https://github.com/virgileader/miniblog.git
+git clone https://github.com/warren-buffets/mini-blog.git
 cd miniblog
 ```
 
